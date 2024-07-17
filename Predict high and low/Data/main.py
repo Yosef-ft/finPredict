@@ -1,6 +1,6 @@
 import logging
 
-
+from Getting_data import *
 
 logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
@@ -19,7 +19,17 @@ logger.addHandler(file_handler)
 logger.addHandler(stream_handler)
 
 
-logging.info("Test 1")
-logging.debug("Test 2")
+if __name__ == "__main__":
+
+    while True:    
+        input_str = input("Do you need more data (y/n): ").lower()
+
+        if input_str == 'n':
+            print('Exiting main window')
+            break
+
+        elif input_str == 'y':
+            symbol = input('Enter the symbol: ').upper()
+            
 
 
