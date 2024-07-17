@@ -1,6 +1,6 @@
 import logging
 
-from Getting_data import *
+
 
 logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
@@ -30,6 +30,6 @@ if __name__ == "__main__":
 
         elif input_str == 'y':
             symbol = input('Enter the symbol: ').upper()
-            
+
 
 

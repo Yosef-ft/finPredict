@@ -7,7 +7,7 @@ import pandas
 logger = logging.getLogger()
 
 class BinanceClient:
-    def __init__(self, futures = True):
+    def __init__(self, futures: Optional[bool] = True):
         
         self.futures = futures
 
@@ -43,14 +43,17 @@ class BinanceClient:
 
         return [symbol['symbol'] for symbol in symbols]
     
-    def get_historical_data(self, symbol: str, startTime = None, endTime = None):
+    def get_historical_data(self, symbol: str, startTime: Optional[int] = None, endTime: Optional[int] = None):
 
         params = dict()
         params['symbol'] = symbol
         params['interval'] = '1m'
-        params['startTime'] = startTime
-        params['endTime'] = endTime
         params['limit'] = 1500
+
+        if startTime is not None:
+            params['startTime'] = startTime
+        if endTime is not None:
+            params['endTime'] = endTime
 
         endpoint = '/fapi/v1/klines' if self.futures else '/api/v3/klines'
 
