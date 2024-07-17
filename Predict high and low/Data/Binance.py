@@ -42,10 +42,29 @@ class BinanceClient:
         symbols = response['symbols']
 
         return [symbol['symbol'] for symbol in symbols]
+    
+    def get_historical_data(self, symbol: str, startTime = None, endTime = None):
+
+        params = dict()
+        params['symbol'] = symbol
+        params['interval'] = '1m'
+        params['startTime'] = startTime
+        params['endTime'] = endTime
+        params['limit'] = 1500
+
+        endpoint = '/fapi/v1/klines' if self.futures else '/api/v3/klines'
+
+        response = self._make_request(endpoint, params)
+        candles = []
+
+        for c in response:
+            candles.append((float(c[0]), float(c[1]), float(c[2]), float(c[3]), float(c[4]), float(c[5])))
+
+        return candles
 
 
 if __name__ == '__main__':
     client = BinanceClient()
-    print(client._get_symbols())
+    print(client.get_historical_data('BTCUSDT'))
     
     
