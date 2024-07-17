@@ -1,5 +1,5 @@
 import logging
-
+import time
 
 
 logger = logging.getLogger()
@@ -20,7 +20,7 @@ logger.addHandler(stream_handler)
 
 
 if __name__ == "__main__":
-
+    print(time.time())
     while True:    
         input_str = input("Do you need more data (y/n): ").lower()
 
