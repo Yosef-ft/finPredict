@@ -1,5 +1,8 @@
 import logging
-import time
+
+
+from data_collector import collect_all
+from Binance import BinanceClient
 
 
 logger = logging.getLogger()
@@ -20,7 +23,7 @@ logger.addHandler(stream_handler)
 
 
 if __name__ == "__main__":
-    print(time.time())
+
     while True:    
         input_str = input("Do you need more data (y/n): ").lower()
 
@@ -30,6 +33,8 @@ if __name__ == "__main__":
 
         elif input_str == 'y':
             symbol = input('Enter the symbol: ').upper()
+            client = BinanceClient()
+            collect_all(client, symbol)
 
 
 

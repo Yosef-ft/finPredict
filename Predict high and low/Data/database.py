@@ -16,8 +16,8 @@ class Hdf5Client:
 
     def create_data(self, symbol: str):
         if symbol not in self.hdf.keys():
-            self.hdf.create_dataset(symbol, shape= (None, 6), dtype='float64')
-            self.flush()
+            self.hdf.create_dataset(symbol,shape=(0,6),maxshape=(None, 6), dtype='float64')
+            self.hdf.flush()
     
     def write_data(self, symbol: str, data: List[Tuple]):
 
@@ -41,12 +41,13 @@ class Hdf5Client:
 
         data_array = np.array(data)
 
-        self.hdf[symbol].resize(self.hdf[symbol].shape[0] + data_array.shape[0])
+        self.hdf[symbol].resize(self.hdf[symbol].shape[0] + data_array.shape[0], axis=0)
         self.hdf[symbol][-data_array.shape[0]:] = data_array
 
         self.hdf.flush()
 
     def get_first_last_timestamp(self, symbol: str) -> Union[Tuple[None, None], Tuple[float, float]]:
+        print('data>>>>>>>> ',self.hdf[symbol])
 
         existing_data = self.hdf[symbol][:]
 
